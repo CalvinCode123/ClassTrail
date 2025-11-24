@@ -24,11 +24,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env()
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
-SUPABASE_PASSWORD = env("SUPABASE_DB_PASSWORD")
-SUPABASE_DB_USER = env("SUPABASE_DB_USER")
-SUPABASE_DB_NAME = env("SUPABASE_DB_NAME")
-SUPABASE_DB_HOST = env("SUPABASE_DB_HOST")
-SUPABASE_DB_PORT = env("SUPABASE_DB_PORT")
+import os
+
+SUPABASE_PASSWORD = os.environ.get("SUPABASE_DB_PASSWORD")
+SUPABASE_DB_USER = os.environ.get("SUPABASE_DB_USER")
+SUPABASE_DB_NAME = os.environ.get("SUPABASE_DB_NAME")
+SUPABASE_DB_HOST = os.environ.get("SUPABASE_DB_HOST")
+SUPABASE_DB_PORT = os.environ.get("SUPABASE_DB_PORT")
+
 
 
 SECRET_KEY = env("DJANGO_SECRET_KEY")
