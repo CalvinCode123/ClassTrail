@@ -35,8 +35,13 @@ SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
-CSRF_TRUSTED_ORIGINS = []
+ALLOWED_HOSTS = [
+    "classtrail.calvinho.ie",
+    "localhost",
+]
+CSRF_TRUSTED_ORIGINS = [
+    "https://classtrail.calvinho.ie",
+]
 
 #setting custom user model defined in models.py
 
