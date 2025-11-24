@@ -13,9 +13,6 @@ from pathlib import Path
 import os
 import dj_database_url
 
-
-
-
 import environ
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,7 +35,7 @@ SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 CSRF_TRUSTED_ORIGINS = []
 
 #setting custom user model defined in models.py
