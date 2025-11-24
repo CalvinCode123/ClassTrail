@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <div class="jumbotron">
+        <div class="container text-center">
+          <h1>{{classroom.classroom_subject}}</h1>      
+        </div>
+    </div>
+
+{% if user.is_authenticated and user.is_teacher %}
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+  Delete Classroom
+</button>
+{% endif %}
+
+
+
+
+
+    <h1>Teacher Name: {{classroom.teacher.first_name}} {{classroom.teacher.last_name}}</h1> 
+   
+{% if user.is_authenticated and user.is_teacher %}
+
+    <h1>Classroom Id: {{classroom.id}}</h1>
+    <h1>Classroom Code: {{classroom.classroom_code}}</h1>
+{% endif %}
+
+
+
+   {% for work in work_list %}
+    <h1>{{ work.date_assigned }}</h1>
+    {% endfor %}
+
+    <div class="modal fade" id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+        
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Delete classroom: {{ classroom.classroom_subject }} </h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          
+          <!-- Modal body -->
+          <div class="modal-body">
+            <p>Are you sure you want to delete "{{ classroom.classroom_subject }}"?</p>
+          </div>
+          
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <a  href="{% url 'delete_classroom' classroom.id %}" class="btn btn-outline-danger" role="button">Confirm Delete</a>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+{% endblock %}

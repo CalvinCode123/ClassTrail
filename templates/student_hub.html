@@ -1,0 +1,116 @@
+{% extends 'base.html' %} {% block content %}
+
+<style>
+	.student_hub .card {
+		border-radius: 15px;
+		transition: transform 0.2s, box-shadow 0.2s;
+		height: 18rem; /* Make all cards the same height */
+		display: flex;
+		align-items: center; /* Vertical centering */
+		justify-content: center; /* Horizontal centering */
+		text-align: center; /* Center text inside */
+		padding-top: 10px;
+	}
+
+	.student_hub .card:hover {
+		transform: translateY(-5px);
+		box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+	}
+
+	.card.bg-classtrail {
+		background-color: #ff6b6b;
+	}
+	.card.bg-classes {
+		background-color: #4dabf7;
+	}
+	.card.bg-grades {
+		background-color: #63e6be;
+	}
+	.card.bg-workfeed {
+		background-color: #fcc419;
+	}
+
+	.card-text,
+	.card h5 {
+		color: white;
+		margin: 0;
+	}
+</style>
+
+<div class="jumbotron">
+	<div class="container text-center">
+		<h1>{{ user.get_username }}'s StudentHub</h1>
+	</div>
+</div>
+
+<br />
+
+<div class="student_hub container-fluid text-center">
+	<div class="row g-4 justify-content-center">
+		<div class="col-xs-12 col-sm-6 col-lg-3 d-flex justify-content-center">
+			<div class="card bg-classtrail text-white mb-3">
+				<div
+					class="card-body d-flex flex-column justify-content-center align-items-center"
+				>
+					<a
+						href="{% url 'classtrail' %}"
+						class="card-title stretched-link text-white text-decoration-none"
+					>
+						<h5>ClassTrail</h5>
+					</a>
+					<p class="card-text">Keep a record of all your work here!</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-lg-3 d-flex justify-content-center">
+			<div class="card bg-classes text-white mb-3">
+				<div
+					class="card-body d-flex flex-column justify-content-center align-items-center"
+				>
+					<a
+						href="{% url 'student_classroom_list' %}"
+						class="card-title stretched-link text-white text-decoration-none"
+					>
+						<h5>View Classes</h5>
+					</a>
+					<p class="card-text">View and join classrooms here.</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-lg-3 d-flex justify-content-center">
+			<div class="card bg-grades text-white mb-3">
+				<div
+					class="card-body d-flex flex-column justify-content-center align-items-center"
+				>
+					<a
+						href="{% url 'view_grades' %}"
+						class="card-title stretched-link text-white text-decoration-none"
+					>
+						<h5>View Grades</h5>
+					</a>
+					<p class="card-text">View your grades for your classes.</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-lg-3 d-flex justify-content-center">
+			<div class="card bg-workfeed text-white mb-3">
+				<div
+					class="card-body d-flex flex-column justify-content-center align-items-center"
+				>
+					<a
+						href="{% url 'work_feed'%}"
+						class="card-title stretched-link text-white text-decoration-none"
+					>
+						<h5>Work Feed</h5>
+					</a>
+					<p class="card-text">View work due for classrooms.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

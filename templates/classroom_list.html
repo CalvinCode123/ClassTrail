@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <div class="jumbotron">
+        <div class="container text-center">
+          <h1>My Classes</h1>      
+        </div>
+    </div>
+
+    <a href="{% url 'manage_classes' %}" class="btn btn-outline-primary" role="button">Create Classroom</a>
+
+    <div class="alert alert-{{ message.tags }}">
+      {% if messages %}
+      <ul class="messages">
+          {% for message in messages %}
+          {% if message.tags == "success" %} <div class="alert alert-success " role="alert"> {% endif %}
+          {% if message.tags == "error" %} <div class="alert alert-danger" role="alert"> {% endif %}
+              {{message}}
+            </div>
+          {% endfor %}
+      </ul>
+      {% endif %}
+  </div>
+
+<div class="container-fluid bg-3 text-center">    
+  <div class="row">
+    {% for classes in classroom_list %}
+    <div class="col-xs-12 col-sm-6 col-lg-3">
+      <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+
+          <div class="card-body">
+              <a href="{% url 'classroom' classes.id %}" class="card-title btn btn-primary stretched-link"><h5>{{ classes.classroom_subject }}</h5></a>
+            <p class="card-text">{{classes.classroom_description}}</p>
+          </div>
+        </div>
+    </div>
+    {% endfor %}
+  </div>
+</div><br>
+
+</div><br><br>
+
+{% endblock %}
