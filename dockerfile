@@ -28,8 +28,8 @@ COPY . /app/
 RUN python manage.py collectstatic --noinput
 
 # Expose port (Waitress will listen here)
-EXPOSE 8000
+EXPOSE 3000
 
 # Start Django using Waitress
 # Replace "yourprojectname" with your Django project folder (where wsgi.py is)
-CMD ["waitress-serve", "--port=8000", "fyp.wsgi:application"]
+CMD ["waitress-serve", "--port=3000", "ClassTrail.wsgi:application"]
