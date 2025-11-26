@@ -1,50 +1,116 @@
-{% extends 'base.html' %}
-{% block content %}
-    <div class="jumbotron">
-        <div class="container text-center">
-          <h1>{{ user.get_username }}'s TeacherHub</h1>      
-        </div>
-    </div>
+{% extends 'base.html' %} {% block content %}
 
-    <br>
-  
-      <div class="teacher_hub container-fluid bg-3 text-center">    
-        <div class="row">
-          <div class="col-xs-12 col-sm-6 col-lg-3 d-flex justify-content-center">
-            <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-     
-                <div class="card-body">
-                    <a href="{% url 'assign_work' %}" class="card-title btn btn-primary stretched-link"><h5>Assign Work</h5></a>
-                  <p class="card-text">Assign work for a classroom.</p>
-                </div>
-              </div>
-          </div>
-          <div class="col-xs-12 col-sm-6 col-lg-3 d-flex justify-content-center"> 
-            <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                <div class="card-body">
-                    <a href="{% url 'classroom_list' %}" class="card-title btn btn-primary stretched-link"><h5>Manage Classes</h5></a>
-                  <p class="card-text">Create and view classrooms.</p>
-                </div>
-              </div>
-          </div>
-          <div class="col-xs-12 col-sm-6 col-lg-3 d-flex justify-content-center"> 
-            <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                <div class="card-body">
-                    <a href="#" class="card-title btn btn-primary stretched-link"><h5>Create Test</h5></a>
-                  <p class="card-text">Feature coming soon(not implemented yet!)</p>
-                </div>
-              </div>
-          </div>
-          <div class="col-xs-12 col-sm-6 col-lg-3 d-flex justify-content-center">
-            <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                <div class="card-body">
-                  <a href="{% url 'grade_work' %}" class="card-title btn btn-primary stretched-link"><h5>Grade Work</h5></a>
-                  <p class="card-text">Grade work uploaded by students.</p>
-                </div>
-              </div>
-          </div>
-        </div>
-      </div><br>
-      
-      </div><br><br>
+<style>
+	.teacher_hub .card {
+		border-radius: 15px;
+		transition: transform 0.2s, box-shadow 0.2s;
+		height: 18rem; /* All cards same height */
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		padding-top: 10px;
+	}
+
+	.teacher_hub .card:hover {
+		transform: translateY(-5px);
+		box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+	}
+
+	.card.bg-assign {
+		background-color: #ff6b6b;
+	}
+	.card.bg-classes {
+		background-color: #4dabf7;
+	}
+	.card.bg-test {
+		background-color: #63e6be;
+	}
+	.card.bg-grade {
+		background-color: #fcc419;
+	}
+
+	.card-text,
+	.card h5 {
+		color: white;
+		margin: 0;
+	}
+</style>
+
+<div class="jumbotron">
+	<div class="container text-center">
+		<h1>{{ user.get_username }}'s TeacherHub</h1>
+	</div>
+</div>
+
+<br />
+
+<div class="teacher_hub container-fluid text-center">
+	<div class="row g-4 justify-content-center">
+		<div class="col-12 col-md-6 col-lg-3 d-flex justify-content-center">
+			<div class="card bg-assign text-white mb-3">
+				<div
+					class="card-body d-flex flex-column justify-content-center align-items-center"
+				>
+					<a
+						href="{% url 'assign_work' %}"
+						class="card-title stretched-link text-white text-decoration-none"
+					>
+						<h5>Assign Work</h5>
+					</a>
+					<p class="card-text">Assign work for a classroom.</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-12 col-md-6 col-lg-3 d-flex justify-content-center">
+			<div class="card bg-classes text-white mb-3">
+				<div
+					class="card-body d-flex flex-column justify-content-center align-items-center"
+				>
+					<a
+						href="{% url 'classroom_list' %}"
+						class="card-title stretched-link text-white text-decoration-none"
+					>
+						<h5>Manage Classes</h5>
+					</a>
+					<p class="card-text">Create and view classrooms.</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-12 col-md-6 col-lg-3 d-flex justify-content-center">
+			<div class="card bg-test text-white mb-3">
+				<div
+					class="card-body d-flex flex-column justify-content-center align-items-center"
+				>
+					<a
+						href="#"
+						class="card-title stretched-link text-white text-decoration-none"
+					>
+						<h5>Create Test</h5>
+					</a>
+					<p class="card-text">Feature coming soon (not implemented yet!)</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-12 col-md-6 col-lg-3 d-flex justify-content-center">
+			<div class="card bg-grade text-white mb-3">
+				<div
+					class="card-body d-flex flex-column justify-content-center align-items-center"
+				>
+					<a
+						href="{% url 'grade_work' %}"
+						class="card-title stretched-link text-white text-decoration-none"
+					>
+						<h5>Grade Work</h5>
+					</a>
+					<p class="card-text">Grade work uploaded by students.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
 {% endblock %}
