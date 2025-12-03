@@ -33,7 +33,7 @@ SUPABASE_DB_PORT = os.environ.get("SUPABASE_DB_PORT")
 
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     "classtrail.calvinho.ie",
@@ -105,7 +105,7 @@ WSGI_APPLICATION = 'ClassTrail.wsgi.application'
 DATABASES = {
     'default': dj_database_url.parse(
         os.environ.get("DB_CON_STRING"),
-        conn_max_age=600,  # 10 minutes persistent connections
+        conn_max_age=0,  # 10 minutes persistent connections
         ssl_require=False  # internal connections usually do NOT need SSL
     )
 }
