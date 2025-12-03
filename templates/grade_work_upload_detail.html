@@ -1,167 +1,121 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+{% extends "base.html" %} {% load crispy_forms_tags %} {% block extra_css %}
+<style>
+	table,
+	td {
+		border: 1px solid black;
+	}
 
+	footer {
+		background-color: #f2f2f2;
+		padding: 25px;
+	}
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	.row [class*="col-"] {
+		margin-bottom: -99999px;
+		padding-bottom: 99999px;
+	}
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  
-    <title>ClassTrail</title>
+	.row {
+		overflow: hidden;
+	}
 
-    <style>
-      /* Remove the navbar's default margin-bottom and rounded borders */ 
-      .navbar {
-        margin-bottom: 0;
-        border-radius: 0;
-      }
+	.hoverTable {
+		width: 100%;
+		border-collapse: collapse;
+		margin-bottom: 5vw;
+	}
+	.hoverTable td,
+	.hoverTable th {
+		padding: 7px;
+		border: black 1px solid;
+	}
+	.hoverTable tr {
+		background: #eee;
+	}
+	.hoverTable tr:hover {
+		background-color: #b8d1f3;
+	}
 
-      
-      table, td {
-      border: 1px solid black;
-      }
-      
-      /* Add a gray background color and some padding to the footer */
-      footer {
-        background-color: #f2f2f2;
-        padding: 25px;
-      }
-    
-    .row [class*="col-"]{
-      margin-bottom: -99999px;
-      padding-bottom: 99999px;
-    }
-  
-    .row{
-      overflow: hidden; 
-    }
-    .product .img-responsive {
-      margin: 0 auto;
-  }
-  
-  
-      .hoverTable{
-      width:100%; 
-      border-collapse:collapse; 
-      margin-bottom: 5vw;
-    }
-    .hoverTable td{ 
-      padding:7px; border:black 1px solid;
-    }
-    .hoverTable th{ 
-      padding:7px; border:black 1px solid;
-    }
-    /* Define the default color for all the table rows */
-    .hoverTable tr{
-      background: #eee;
-    }
-    /* Define the hover highlight color for the table row */
-      .hoverTable tr:hover {
-            background-color: #b8d1f3;
-      }
-      .img-container {
-        height: 70vh;
-        width: 60vw;
-        overflow: auto;
-        }
+	.img-container {
+		height: 70vh;
+		width: 60vw;
+		overflow: auto;
+	}
 
-        .img-container img {
-        width: auto;
-        height: 70vh;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        }
+	.img-container img {
+		width: auto;
+		height: 70vh;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+	}
 
-        .footer {
-            height: 10vh;
-            background: #eee;
-        }
+	img {
+		max-width: 100%;
+		max-height: 100%;
+	}
+</style>
+{% endblock %} {% block content %}
 
-        img {
-      max-width: 100%;
-      max-height: 100%;
-}
- 
-    </style>
+<div class="jumbotron">
+	<div class="container text-center">
+		<h1>{{ object.student }}'s work {{ object.date }}</h1>
+	</div>
+</div>
 
-</head>
-<body>
+{% if messages %}
+<div class="container mt-3">
+	{% for message in messages %}
+	<div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
+	{% endfor %}
+</div>
+{% endif %}
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="{% url 'index' %}">ClassTrail</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav mr-auto">
-        {% if user.is_authenticated and user.is_teacher %}
-        <li class="nav-item active"><a class="nav-link" href="{% url 'teacher_hub' %}">Teacher Hub</a></li>
-        {% endif %}
-        {% if user.is_authenticated and user.is_student %}
-        <li class="nav-item active"><a class="nav-link" href="{% url 'student_hub' %}">Student Hub</a></li>
-        {% endif %}
-        
-      </ul>
-      <span class="navbar-text">
-        <ul class="nav navbar-nav navbar-right">
-            {% if user.is_authenticated%}
-            <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
-            {%else%}
-            <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-            <li><a href="{% url 'register' %}"><span class="glyphicon glyphicon-log-in"></span> Register</a></li>
-            {% endif %}
-          </ul>
-      </span>
-    </div>
-  </nav>
+<div class="container mt-4">
+	<div class="row">
+		<!-- IMAGE COLUMN -->
+		<div class="col-md-8 text-center">
+			<div class="img-container" style="max-height: 55vh; overflow: auto">
+				<img
+					src="{{ object.picture.url }}"
+					style="
+						max-height: 50vh;
+						width: auto;
+						border: 1px solid #ddd;
+						border-radius: 8px;
+					"
+				/>
+			</div>
+		</div>
 
-    <div class="jumbotron">
-        <div class="container text-center">
-          <h1>{{ object.student }}'s work {{ object.date }}</h1>      
-        </div>
-    </div>
+		<!-- GRADING CARD COLUMN -->
+		<div class="col-md-4">
+			<div class="card shadow-sm">
+				<div class="card-body">
+					<h5 class="card-title">Submitted Work</h5>
+					<hr />
 
-    <div class="alert alert-{{ message.tags }}">
-      {% if messages %}
-      <ul class="messages">
-          {% for message in messages %}
-          {% if message.tags == "success" %} <div class="alert alert-success " role="alert"> {% endif %}
-          {% if message.tags == "error" %} <div class="alert alert-danger" role="alert"> {% endif %}
-              {{message}}
-            </div>
-          {% endfor %}
-      </ul>
-      {% endif %}
-  </div>
+					<a
+						href="{{ object.picture.url }}"
+						download
+						class="btn btn-outline-primary btn-block mb-3"
+					>
+						Download Document
+					</a>
 
-    <div class="container-fluid p-10">
-      <div class="row">
-        <div class="col-md-8">
-          <div class = "img-container">
+					<form method="post">
+						{% csrf_token %} {{ form.as_p }}
 
-            <img src="{{ object.picture.url }}">
-    
-        </div>
-        </div>
-        <div class="col-md-4">
-          <a  href="{{ object.picture.url }}" download> Download Document </a>
+						<button class="btn btn-success btn-block mt-2" type="submit">
+							Save Grade
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
-          <form method="post"> 
-              {% csrf_token %} 
-              {{ form.as_p }} 
-              <input type="submit" value="Save"> 
-          </form> 
-        </div>
-      </div>
-    </div>
+<br />
 
-    <br>
-    
-    <div class = "footer navbar-fixed-bottom"></div>
-
-</body>
-</html>
+{% endblock %}

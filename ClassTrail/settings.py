@@ -104,9 +104,9 @@ WSGI_APPLICATION = 'ClassTrail.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.parse(
-        f'postgresql://postgres.haddzixfydjkooeipvrh:{SUPABASE_PASSWORD}@aws-1-eu-north-1.pooler.supabase.com:5432/postgres',
-        conn_max_age=0,   # keep connection open for 10 minutes
-        ssl_require=True
+        os.environ.get("DB_CON_STRING"),
+        conn_max_age=600,  # 10 minutes persistent connections
+        ssl_require=False  # internal connections usually do NOT need SSL
     )
 }
 
